@@ -1,0 +1,16 @@
+{
+    "name": "novaksolutions/frontdesk-php-sdk",
+    "require-dev": {
+        "querypath/querypath": "^3.0",
+		"twig/twig": "1.24.0",
+        "phpunit/phpunit": "^4.8"
+    },
+    "authors": [
+        {
+            "name": "joey",
+            "email": "joey.novak@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
