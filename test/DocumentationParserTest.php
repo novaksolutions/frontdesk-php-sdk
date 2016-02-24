@@ -10,4 +10,14 @@ class DocumentationParserTest extends PHPUnit_Framework_TestCase{
     public function testGetDocumentation(){
         $this->assertEquals(0, 0);
     }
+
+    public function testParseReportingDocumentation(){
+
+    }
+
+    public function testParseCoreDocumentation(){
+        $v3Parser = new \NovakSolutions\FrontDesk\Generate\V3Parser();
+        $definitions = $v3Parser->extractDefinitions(file_get_contents(dirname(__FILE__) . "/resource/v3"));
+
+    }
 } 
