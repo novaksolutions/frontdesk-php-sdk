@@ -17,7 +17,7 @@ class DocumentationParserTest extends PHPUnit_Framework_TestCase{
 
     public function testParseCoreDocumentation(){
         $v3Parser = new \NovakSolutions\FrontDesk\Generate\V3Parser();
-        $definitions = $v3Parser->extractDefinitions(file_get_contents(dirname(__FILE__) . "/resource/v3"));
-
+        $definitions = $v3Parser->extractDefinitions(file_get_contents(dirname(__FILE__) . "/resource/v3.html"));
+        $this->assertEquals(array_keys($definitions['Clients']['fields']['person_state']['values']), array('active', 'deleted', 'hidden'));
     }
 } 
