@@ -12,15 +12,15 @@ use NovakSolutions\FrontDesk\Model;
 /**
  * Class {{ model.modelName }}
  * @package NovakSolutions\FrontDesk\Model\{{ frontOrDesk }}
-{% for field in model.fields %} * @property {{ descriptionToPhpDocType(field.type) }} ${{ field.name }},
+{% for field in model.fields %} * @property {{ descriptionToPhpDocType(field.type) }} ${{ field.name }}
 {% endfor %}
  */
-class {{ model.modelName }} extends Model\{{ baseClass}}{
+class {{ model.modelName }} extends Model\{{ baseClass }} {
     public static $endPoints = array(
-            'select' => array(
-                'method' => 'POST',
-                'urlPath' => '{{ model.urlPath }}'
-            )
+        'select' => array(
+            'method' => 'POST',
+            'urlPath' => '{{ model.urlPath }}'
+        )
     );
 
     public static $fields = array(

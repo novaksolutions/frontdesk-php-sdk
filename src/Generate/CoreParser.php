@@ -9,7 +9,7 @@
 namespace NovakSolutions\FrontDesk\Generate;
 
 
-class V3Parser implements Parser {
+class CoreParser implements Parser {
 
     public function extractDefinitions($html){
         $definitions = array();
@@ -18,8 +18,16 @@ class V3Parser implements Parser {
 
         /** @var \QueryPath\DOMQuery $group */
         foreach($qp as $group){
-            if(strpos($group->attr('id'), "query-") === 0){
-                $title = $group->find('h2')->text();
+            if(strpos($group->attr('id'), "endpoint-") === 0){
+                $title = trim($group->find('h2')->text());
+
+                //Get the front section
+                    //Get any code sections, then proceed downwards looking for parameters...
+                    //Use the Curl Example to parse out fields...  json decode?
+
+                //Get the Desk section
+                    //Get any code sections, then proceed downwards looking for parameters...
+                    //Use the Curl Example to parse out fields...  json decode?
                 $definitions[$title] = array();
                 $urlPath = $group->find('.method_details_list .url')->text();
                 $method = $group->find('.method_details_list .action')->text();

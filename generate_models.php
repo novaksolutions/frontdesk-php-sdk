@@ -1,7 +1,7 @@
 <?php
 use NovakSolutions\FrontDesk\Generate;
 
-require_once(dirname(dirname(__DIR__)) . '/vendor/autoload.php');
+require_once('/vendor/autoload.php');
 
 
 $v3Parser = new Generate\V3Parser();
@@ -14,7 +14,7 @@ $reportingDefinitions = $v3Parser->extractDefinitions($reportingApiDocsAsHtml);
 /** @var mixed $models */
 $models = array();
 
-$loader = new Twig_Loader_Filesystem(dirname(__FILE__) . '/Templates');
+$loader = new Twig_Loader_Filesystem('src/Generate/Templates');
 $twig = new Twig_Environment($loader);
 $function = new Twig_SimpleFunction('descriptionToPhpDocType',
     function ($type) {
@@ -38,10 +38,10 @@ foreach($reportingDefinitions as $objectName => $endPoints){
 
     $frontOrDesk = 'Desk';
     $className = $model['modelName'];
-    $baseClass = 'Desk';
+    $baseClass = 'ReportingModel';
 
     $renderedTemplate = $template->render(compact('model', 'frontOrDesk', 'className', 'baseClass'));
-    file_put_contents("out/Desk/" . $className . '.php', $renderedTemplate);
+    file_put_contents("src/Model/Desk/" . $className . '.php', $renderedTemplate);
 }
 
 function http_get_contents($url){
