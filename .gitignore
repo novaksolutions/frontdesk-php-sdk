@@ -1,2 +1,4 @@
 vendor
 .idea
+composer.phar
+src/test/resource/oauth_credentials.php

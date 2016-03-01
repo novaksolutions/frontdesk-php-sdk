@@ -1,0 +1,30 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: joey
+ * Date: 2/29/2016
+ * Time: 2:48 PM
+ */
+
+namespace NovakSolutions\FrontDesk\Model\{{ frontOrDesk }};
+use NovakSolutions\FrontDesk\Model;
+
+/**
+ * Class {{ model.modelName }}
+ * @package NovakSolutions\FrontDesk\Model\{{ frontOrDesk }}
+{% for field in model.fields %} * @property {{ descriptionToPhpDocType(field.type) }} ${{ field.name }},
+{% endfor %}
+ */
+class {{ model.modelName }} extends Model\{{ baseClass}}{
+    public static $endPoints = array(
+            'select' => array(
+                'method' => 'POST',
+                'urlPath' => '{{ model.urlPath }}'
+            )
+    );
+
+    public static $fields = array(
+{% for field in model.fields %}        '{{ field.name }}',
+{% endfor %}
+    );
+}

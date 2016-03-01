@@ -21,8 +21,8 @@ class V3Parser implements Parser {
             if(strpos($group->attr('id'), "query-") === 0){
                 $title = $group->find('h2')->text();
                 $definitions[$title] = array();
-                $url = $group->find('.method_details_list .url')->text();
-                $action = $group->find('.method_details_list .action')->text();
+                $urlPath = $group->find('.method_details_list .url')->text();
+                $method = $group->find('.method_details_list .action')->text();
                 $tables = $group->find('.parameters > .data_table');
                 $fields = $tables->first()->find('tr > th');
                 foreach($fields as $field){
@@ -32,6 +32,7 @@ class V3Parser implements Parser {
                         $definitions[$title]['fields'][$fieldName] = array(
                             'type' => trim($field->next()->text()),
                             'description' => trim($field->next()->next()->text()),
+                            'name' => $fieldName
                         );
 
                         $enumTables = $field->parent()->find('table');
@@ -46,9 +47,9 @@ class V3Parser implements Parser {
                         echo 'Skipping Field Because It Is An Enum Value, Not A Field: ' . $field->text() . "\n";
                     }
                 }
-                $definitions[$title]['action'] = $action;
-                $definitions[$title]['url'] = $url;
-                
+                $definitions[$title]['method'] = $method;
+                $definitions[$title]['urlPath'] = $urlPath;
+
             }
 
 
