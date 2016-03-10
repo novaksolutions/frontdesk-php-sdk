@@ -4,7 +4,7 @@ use NovakSolutions\FrontDesk\Generate;
 require_once('/vendor/autoload.php');
 
 
-$v3Parser = new Generate\V3Parser();
+$v3Parser = new Generate\ReportingParser();
 $reportingApiDocsAsHtml = http_get_contents("https://developer.frontdeskhq.com/docs/reporting/v3");
 
 $reportingDefinitions = $v3Parser->extractDefinitions($reportingApiDocsAsHtml);
@@ -28,7 +28,8 @@ $function = new Twig_SimpleFunction('descriptionToPhpDocType',
 );
 
 $twig->addFunction($function);
-$template = $twig->loadTemplate('model.twig');
+
+$template = $twig->loadTemplate('reporting_model.twig');
 
 foreach($reportingDefinitions as $objectName => $endPoints){
     $model = array();

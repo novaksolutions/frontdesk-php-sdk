@@ -63,7 +63,7 @@ class CoreParser extends Parser {
                         $parametersTable = $siblingElements->filter("table");
                         if($parametersTable->count() > 0){
                             $parameters = $this->extractFieldsFromTables($parametersTable);
-                            if($siblingElements->filter("h4")->text() == 'Attributes'){
+                            if($siblingElements->find("h4")->text() == 'Attributes'){
                                 $methodDetails['fields'] = $parameters;
                             } else {
                                 $methodDetails['parameters'] = $parameters;
