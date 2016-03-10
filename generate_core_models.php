@@ -29,10 +29,10 @@ $function = new Twig_SimpleFunction('descriptionToPhpDocType',
 $twig->addFunction($function);
 $template = $twig->loadTemplate('core_model.twig');
 
-foreach($reportingDefinitions as $objectName => $methods){
+foreach($reportingDefinitions as $objectName => $objectDetails){
     $standardMethods = array();
     $selectMethod = null;
-    foreach($methods as $method){
+    foreach($objectDetails['methods'] as $method){
         if($method['method'] == 'GET'){
             $selectMethod = $method;
             break;
@@ -63,8 +63,7 @@ foreach($reportingDefinitions as $objectName => $methods){
 
     $model = array();
     $model['modelName'] = preg_replace("[^A-Za-z0-9]", "", $objectName);
-    $model['modelName'] = preg_replace('{s$}', '', $objectName);
-    $model = array_merge($endPoints, $model);
+    $model['modelName'] = preg_replace('{s$}', '', $model['modelName']);
 
     if(strpos($selectMethod['url'], '/api/v2/desk/') === 0){
         $frontOrDesk = 'Desk';
@@ -76,7 +75,8 @@ foreach($reportingDefinitions as $objectName => $methods){
     $baseClass = 'CoreModel';
 
     $renderedTemplate = $template->render(compact('model', 'frontOrDesk', 'className', 'baseClass'));
-    file_put_contents("src/Model/Desk/" . $className . '.php', $renderedTemplate);
+
+    file_put_contents("src/Model/{$frontOrDesk}/" . $className . '.php', $renderedTemplate);
 }
 
 function http_get_contents($url){
