@@ -62,8 +62,10 @@ foreach($reportingDefinitions as $objectName => $objectDetails){
     }
 
     $model = array();
-    $model['modelName'] = preg_replace("[^A-Za-z0-9]", "", $objectName);
+    $model['modelName'] = preg_replace("/[^A-Za-z0-9]/", "", $objectName);
     $model['modelName'] = preg_replace('{s$}', '', $model['modelName']);
+    $model['fields'] = $fields;
+    $model['urlPath'] = $selectMethod['url'];
 
     if(strpos($selectMethod['url'], '/api/v2/desk/') === 0){
         $frontOrDesk = 'Desk';

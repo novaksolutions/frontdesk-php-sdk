@@ -33,7 +33,7 @@ $template = $twig->loadTemplate('reporting_model.twig');
 
 foreach($reportingDefinitions as $objectName => $endPoints){
     $model = array();
-    $model['modelName'] = preg_replace("[^A-Za-z0-9]", "", $objectName);
+    $model['modelName'] = preg_replace("/[^A-Za-z0-9]/", "", $objectName);
     $model['modelName'] = preg_replace('{s$}', '', $model['modelName']);
     $model = array_merge($endPoints, $model);
 

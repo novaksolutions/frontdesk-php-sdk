@@ -17,8 +17,13 @@ class CoreParser extends Parser {
         $objectDivs = htmlqp($html, '.super_group[id*="endpoint-"]', array('ignore_parser_warnings' => true));
 
         /** @var \QueryPath\DOMQuery $objectDiv */
+        $count = 0;
         foreach($objectDivs as $objectDiv){
-
+//            if($count > 4){
+//                break;
+//            }
+//
+//            $count++;
             $title = trim($objectDiv->find('h2')->text());
 
             //Get the front section

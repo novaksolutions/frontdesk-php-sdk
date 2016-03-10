@@ -18,7 +18,7 @@ use NovakSolutions\FrontDesk\Model;
 class {{ model.modelName }} extends Model\{{ baseClass }} {
     public static $endPoints = array(
         'select' => array(
-            'method' => 'POST',
+            'method' => 'GET',
             'urlPath' => '{{ model.urlPath }}'
         )
     );
