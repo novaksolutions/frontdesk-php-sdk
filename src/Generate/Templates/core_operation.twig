@@ -6,21 +6,19 @@
  * Time: 2:48 PM
  */
 
-namespace NovakSolutions\FrontDesk\Method\{{ frontOrDesk }};
-use NovakSolutions\FrontDesk\Method;
+namespace NovakSolutions\FrontDesk\Operation{{ frontOrDesk }};
+use NovakSolutions\FrontDesk\Operation;
 
 /**
- * Class {{ method.name }}
- * @package NovakSolutions\FrontDesk\Model\{{ frontOrDesk }}
+ * Class {{ className }}
+ * @package NovakSolutions\FrontDesk\Operation{{ frontOrDesk }}
 {% for field in method.fields %} * @property {{ descriptionToPhpDocType(field.type) }} ${{ field.name }}
 {% endfor %}
  */
-class {{ method.modelName }} extends Model\{{ baseClass }} {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => '{{ method.method }}',
-            'urlPath' => '{{ method.urlPath }}'
-        )
+class {{ className }} extends Operation\Operation {
+    public static $endPoint = array(
+        'method' => '{{ method.method }}',
+        'urlPath' => '{{ method.url }}'
     );
 
     public static $fields = array(
