@@ -80,6 +80,7 @@ class FrontDesk {
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/cacert.pem');
         curl_setopt($ch, CURLOPT_HTTPHEADER,
             array(
                 'Authorization: Bearer ' . $accessToken,
