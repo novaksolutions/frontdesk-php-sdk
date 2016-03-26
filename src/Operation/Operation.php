@@ -18,8 +18,8 @@ class Operation{
         $endPoint = static::$urlPath;
         foreach($urlArguments as $name => $value){
             $endPoint = str_replace(":" . $name, $value, $endPoint);
-
-            return FrontDesk::call($endPoint, static::$method, $postData, $subDomain);
         }
+
+        return FrontDesk::call($endPoint, static::$method, $postData, $subDomain);
     }
 }

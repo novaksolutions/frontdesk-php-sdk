@@ -72,12 +72,20 @@ class FrontDesk {
             $businessSubdomain = Businesses::$defaultBusinessSubdomain;
         }
 
+        $accessToken = Businesses::get($businessSubdomain);
+
         $url = 'https://' . $businessSubdomain . '.frontdeskhq.com' . $endPoint;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,
+            array(
+                'Authorization: Bearer ' . $accessToken,
+                'Content-Type: application/vnd.api+json'
+            )
+        );
         $result = curl_exec($ch);
         $result = json_decode($result);
         curl_close($ch);
