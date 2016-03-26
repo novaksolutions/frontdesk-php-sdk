@@ -28,10 +28,8 @@ use NovakSolutions\FrontDesk\Operation;
  * @property collection $custom_fields
  */
 class PostPeople extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'POST',
-        'urlPath' => '/v2/desk/people'
-    );
+    public static $method = 'POST';
+    public static $urlPath = '/v2/desk/people';
 
     public static $fields = array(
         'first_name',
@@ -49,4 +47,9 @@ class PostPeople extends Operation\Operation {
         'skip_complimentary_passes',
         'custom_fields',
     );
+
+    public static function post(, $data, $subdomain = null){
+        $urlArguments = compact('');
+        self::makeRequest($urlArguments, $data, $subdomain);
+    }
 }

@@ -26,10 +26,8 @@ use NovakSolutions\FrontDesk\Operation;
  * @property array $service_ids
  */
 class PostPackProducts extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'POST',
-        'urlPath' => '/api/v2/desk/pack_products'
-    );
+    public static $method = 'POST';
+    public static $urlPath = '/api/v2/desk/pack_products';
 
     public static $fields = array(
         'product',
@@ -45,4 +43,9 @@ class PostPackProducts extends Operation\Operation {
         'send_expiration_notifications',
         'service_ids',
     );
+
+    public static function post(, $data, $subdomain = null){
+        $urlArguments = compact('');
+        self::makeRequest($urlArguments, $data, $subdomain);
+    }
 }

@@ -16,6 +16,8 @@ $models = array();
 
 $loader = new Twig_Loader_Filesystem('src/Generate/Templates');
 $twig = new Twig_Environment($loader);
+$twig->addExtension(new Twig_Extension_Debug());
+$twig->setCache(false);
 $function = new Twig_SimpleFunction('descriptionToPhpDocType',
     function ($type) {
         switch($type){
@@ -42,12 +44,15 @@ foreach($coreDefinitions as $objectName => $objectDetails){
             $frontOrDesk = '\Desk';
         }
         $className = buildMethodNameFromEndPoint($method['method'], $method['url']);
+        $urlArguments = getUrlArguments($method['url']);
 
-        $renderedTemplate = $template->render(compact('method', 'frontOrDesk', 'className'));
         $fileName = "src/Operation/{$frontOrDesk}/" . $className . '.php';
         if(file_exists($fileName)){
             unlink($fileName);
         }
+
+        $renderedTemplate = $template->render(compact('method', 'frontOrDesk', 'className', 'urlArguments'));
+
         file_put_contents($fileName, $renderedTemplate);
     }
 
@@ -76,6 +81,11 @@ function getStandardMethodsForObject($objectName, $definitions){
 
 function buildMethodNameFromEndPoint($method, $endPointUrl){
     $endPointUrl = str_replace("/api/v2/", "", $endPointUrl);
+
+    if(strpos($endPointUrl, ".json") !== false){
+        $endPointUrl = str_replace(".json", "", $endPointUrl);
+    }
+
     if(strpos($endPointUrl, '?') !== false){
         $urlParts = explode("?", $endPointUrl);
         $endPointUrl = array_shift($urlParts);;
@@ -87,6 +97,7 @@ function buildMethodNameFromEndPoint($method, $endPointUrl){
     $secondToLastPiece = current($urlPieces);
 
 
+
     if($lastPiece == ':id'){
         $className = ucwords(strtolower($method)) . Inflector\Inflector::classify(Inflector\Inflector::singularize($secondToLastPiece)) . 'ById';
     } elseif(strpos($secondToLastPiece, ":") !== false) {
@@ -96,4 +107,27 @@ function buildMethodNameFromEndPoint($method, $endPointUrl){
     }
 
     return $className;
+}
+
+function getUrlArguments($endPointUrl){
+    $urlArguments = array();
+
+    $endPointUrl = str_replace("/api/v2/", "", $endPointUrl);
+
+    if(strpos($endPointUrl, ".json") !== false){
+        $endPointUrl = str_replace(".json", "", $endPointUrl);
+    }
+
+    if(strpos($endPointUrl, '?') !== false){
+        $urlParts = explode("?", $endPointUrl);
+        $endPointUrl = array_shift($urlParts);;
+    }
+    $urlPieces = explode("/", $endPointUrl);
+    foreach($urlPieces as $urlPiece){
+        if(strpos($urlPiece, ":") === 0){
+            $urlArguments = str_replace(":", "", $urlPiece);
+        }
+    }
+
+    return $urlArguments;
 }

@@ -25,10 +25,8 @@ use NovakSolutions\FrontDesk\Operation;
  * @property integer $punch_id
  */
 class GetVisitById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/front/visits/:id'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/front/visits/:id';
 
     public static $fields = array(
         'person_id',
@@ -43,4 +41,9 @@ class GetVisitById extends Operation\Operation {
         'paid_for_by',
         'punch_id',
     );
+
+    public static function get($id, $subdomain = null){
+        $urlArguments = compact('id');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

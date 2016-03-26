@@ -14,11 +14,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class GetAvailableSlotsByServiceId extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/desk/appointments/:service_id/available_slots'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/desk/appointments/:service_id/available_slots';
 
     public static $fields = array(
     );
+
+    public static function get($service_id, $subdomain = null){
+        $urlArguments = compact('service_id');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

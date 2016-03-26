@@ -14,11 +14,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class GetPackProductById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/desk/pack_products/:id'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/desk/pack_products/:id';
 
     public static $fields = array(
     );
+
+    public static function get($id, $subdomain = null){
+        $urlArguments = compact('id');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

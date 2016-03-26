@@ -14,11 +14,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class GetWaitlistEntriesByPersonId extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/desk/people/:person_id/waitlist_entries'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/desk/people/:person_id/waitlist_entries';
 
     public static $fields = array(
     );
+
+    public static function get($person_id, $subdomain = null){
+        $urlArguments = compact('person_id');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

@@ -10,6 +10,8 @@ namespace NovakSolutions\FrontDesk\Model;
 use NovakSolutions\FrontDesk;
 
 class Model {
+    public static $endPoints;
+
     public $data = array();
 
     public static function all(){

@@ -14,11 +14,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Front
  */
 class GetStaffMemberById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/front/staff_members/:id'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/front/staff_members/:id';
 
     public static $fields = array(
     );
+
+    public static function get($id, $subdomain = null){
+        $urlArguments = compact('id');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

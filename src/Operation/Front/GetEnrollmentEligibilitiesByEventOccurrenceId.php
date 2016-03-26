@@ -17,14 +17,17 @@ use NovakSolutions\FrontDesk\Operation;
  * @property array $restrictions
  */
 class GetEnrollmentEligibilitiesByEventOccurrenceId extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/front/event_occurrence/:event_occurrence_id/enrollment_eligibilities'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/front/event_occurrence/:event_occurrence_id/enrollment_eligibilities';
 
     public static $fields = array(
         'person_id',
         'can_enroll',
         'restrictions',
     );
+
+    public static function get($event_occurrence_id, $subdomain = null){
+        $urlArguments = compact('event_occurrence_id');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

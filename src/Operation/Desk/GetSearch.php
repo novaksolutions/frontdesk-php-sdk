@@ -14,11 +14,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class GetSearch extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/desk/people/search?q=:query'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/desk/people/search?q=:query';
 
     public static $fields = array(
     );
+
+    public static function get($subdomain = null){
+        $urlArguments = compact('');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

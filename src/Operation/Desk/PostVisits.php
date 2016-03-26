@@ -19,10 +19,8 @@ use NovakSolutions\FrontDesk\Operation;
  * @property array $restrictions
  */
 class PostVisits extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'POST',
-        'urlPath' => '/api/v2/desk/visits'
-    );
+    public static $method = 'POST';
+    public static $urlPath = '/api/v2/desk/visits';
 
     public static $fields = array(
         'person_id',
@@ -31,4 +29,9 @@ class PostVisits extends Operation\Operation {
         'notify_client',
         'restrictions',
     );
+
+    public static function post(, $data, $subdomain = null){
+        $urlArguments = compact('');
+        self::makeRequest($urlArguments, $data, $subdomain);
+    }
 }

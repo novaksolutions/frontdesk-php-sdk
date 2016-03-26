@@ -10,12 +10,12 @@ namespace NovakSolutions\FrontDesk\Operation\Desk;
 use NovakSolutions\FrontDesk\Operation;
 
 /**
- * Class GetStaffMembers
+ * Class GetBusiness
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
-class GetStaffMembers extends Operation\Operation {
+class GetBusiness extends Operation\Operation {
     public static $method = 'GET';
-    public static $urlPath = '/api/v2/desk/staff_members';
+    public static $urlPath = '/api/v2/desk/business.json';
 
     public static $fields = array(
     );

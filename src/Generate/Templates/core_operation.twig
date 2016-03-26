@@ -16,13 +16,33 @@ use NovakSolutions\FrontDesk\Operation;
 {% endfor %}
  */
 class {{ className }} extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => '{{ method.method }}',
-        'urlPath' => '{{ method.url }}'
-    );
+    public static $method = '{{ method.method }}';
+    public static $urlPath = '{{ method.url }}';
 
     public static $fields = array(
 {% for field in method.fields %}        '{{ field.name }}',
 {% endfor %}
     );
+
+{% if method.method == "GET" %}
+    public static function get({% if urlArguments %}${{ urlArguments|join(', $') }}, {% endif %}$subdomain = null){
+        $urlArguments = compact('{{ urlArguments|join("', '") }}');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
+{%  endif %}{% if method.method == "POST" %}
+    public static function post({% if urlArguments %}${% endif %}{{ urlArguments|join(', $') }}, $data, $subdomain = null){
+        $urlArguments = compact('{{ urlArguments|join("', '") }}');
+        self::makeRequest($urlArguments, $data, $subdomain);
+    }
+{%  endif %}{% if method.method == "PUT" %}
+    public static function put({% if urlArguments %}${% endif %}{{ urlArguments|join(', $') }}, $data, $subdomain = null){
+        $urlArguments = compact('{{ urlArguments|join("', '") }}');
+        self::makeRequest($urlArguments, $data, $subdomain);
+    }
+{%  endif %}{% if method.method == "DELETE" %}
+    public static function delete({% if urlArguments %}${{ urlArguments|join(', $') }}, {% endif %}$subdomain = null){
+        $urlArguments = compact('{{ urlArguments|join("', '") }}');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
+{%  endif %}
 }

@@ -19,10 +19,8 @@ use NovakSolutions\FrontDesk\Operation;
  * @property timestamp $email_confirmed_at
  */
 class GetAccount extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/account'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/account';
 
     public static $fields = array(
         'id',
@@ -31,4 +29,9 @@ class GetAccount extends Operation\Operation {
         'last_name',
         'email_confirmed_at',
     );
+
+    public static function get($subdomain = null){
+        $urlArguments = compact('');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

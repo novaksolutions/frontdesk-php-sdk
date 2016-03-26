@@ -14,11 +14,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class PutPackProductById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'PUT',
-        'urlPath' => '/api/v2/desk/pack_products/:id'
-    );
+    public static $method = 'PUT';
+    public static $urlPath = '/api/v2/desk/pack_products/:id';
 
     public static $fields = array(
     );
+
+    public static function put($id, $data, $subdomain = null){
+        $urlArguments = compact('id');
+        self::makeRequest($urlArguments, $data, $subdomain);
+    }
 }

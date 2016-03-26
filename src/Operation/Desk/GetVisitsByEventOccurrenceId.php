@@ -14,11 +14,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class GetVisitsByEventOccurrenceId extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/desk/event_occurrences/:event_occurrence_id/visits'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/desk/event_occurrences/:event_occurrence_id/visits';
 
     public static $fields = array(
     );
+
+    public static function get($event_occurrence_id, $subdomain = null){
+        $urlArguments = compact('event_occurrence_id');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

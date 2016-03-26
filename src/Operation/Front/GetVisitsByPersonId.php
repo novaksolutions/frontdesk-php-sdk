@@ -14,11 +14,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Front
  */
 class GetVisitsByPersonId extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/front/people/:person_id/visits'
-    );
+    public static $method = 'GET';
+    public static $urlPath = '/api/v2/front/people/:person_id/visits';
 
     public static $fields = array(
     );
+
+    public static function get($person_id, $subdomain = null){
+        $urlArguments = compact('person_id');
+        self::makeRequest($urlArguments, null, $subdomain);
+    }
 }

@@ -16,13 +16,16 @@ use NovakSolutions\FrontDesk\Operation;
  * @property string $state_event
  */
 class PutVisitById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'PUT',
-        'urlPath' => '/api/v2/desk/visits/:id'
-    );
+    public static $method = 'PUT';
+    public static $urlPath = '/api/v2/desk/visits/:id';
 
     public static $fields = array(
         'person_id',
         'state_event',
     );
+
+    public static function put($id, $data, $subdomain = null){
+        $urlArguments = compact('id');
+        self::makeRequest($urlArguments, $data, $subdomain);
+    }
 }
