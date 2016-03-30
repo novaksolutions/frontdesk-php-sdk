@@ -12,20 +12,20 @@ namespace NovakSolutions\FrontDesk;
 class Businesses {
     public static $defaultBusinessSubdomain = '';
 
-    static $businesses = array(
+    static $businessAccessTokens = array(
 
     );
 
     public static function get($businessSubdomain){
-        if(isset(self::$businesses[$businessSubdomain])){
-            return self::$businesses[$businessSubdomain];
+        if(isset(self::$businessAccessTokens[$businessSubdomain])){
+            return self::$businessAccessTokens[$businessSubdomain];
         } else {
-            return self::$businesses[self::$defaultBusinessSubdomain];
+            return self::$businessAccessTokens[self::$defaultBusinessSubdomain];
         }
     }
 
-    public static function add($businessSubdomain, $data){
-        self::$businesses[$businessSubdomain] = $data;
+    public static function add($businessSubdomain, $accessToken){
+        self::$businessAccessTokens[$businessSubdomain] = $accessToken;
         if(static::$defaultBusinessSubdomain == ''){
             static::$defaultBusinessSubdomain = $businessSubdomain;
         }

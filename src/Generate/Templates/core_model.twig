@@ -1,27 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 2:48 PM
+ * Copyright 2016 (C) NovakSolutions, LLC
  */
 
-namespace NovakSolutions\FrontDesk\Model\{{ frontOrDesk }};
+namespace NovakSolutions\FrontDesk\Model\{{ model.place }};
 use NovakSolutions\FrontDesk\Model;
 
 /**
- * Class {{ model.modelName }}
- * @package NovakSolutions\FrontDesk\Model\{{ frontOrDesk }}
+ * Class {{ model.name }}
+ * @package NovakSolutions\FrontDesk\Model\{{ model.place }}
 {% for field in model.fields %} * @property {{ descriptionToPhpDocType(field.type) }} ${{ field.name }}
 {% endfor %}
  */
-class {{ model.modelName }} extends Model\{{ baseClass }} {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => 'GET',
-            'urlPath' => '{{ model.urlPath }}'
-        )
-    );
+class {{ model.name }} extends Model\{{ baseClass }} {
+    public static $getByIdOperationClassName = '{{ model.getByIdOperationClassName }}';
+    public static $putOperationClassName = '{{ model.putOperationClassName }}';
+    public static $postOperationClassName = '{{ model.postOperationClassName }}';
+    public static $deleteOperationClassName = '{{ model.deleteOperationClassName }}';
+    public static $queryOperationClassName = '{{ model.queryOperationClassName }}';
 
     public static $fields = array(
 {% for field in model.fields %}        '{{ field.name }}',

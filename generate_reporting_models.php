@@ -7,7 +7,7 @@ require_once('/vendor/autoload.php');
 $v3Parser = new Generate\ReportingParser();
 $reportingApiDocsAsHtml = http_get_contents("https://developer.frontdeskhq.com/docs/reporting/v3");
 
-$reportingDefinitions = $v3Parser->extractDefinitions($reportingApiDocsAsHtml);
+$reportingDefinitions = $v3Parser->extractDataFromHtml($reportingApiDocsAsHtml);
 
 //Process Definitions Info Select, Update, Insert, etc...
 
@@ -41,7 +41,7 @@ foreach($reportingDefinitions as $objectName => $endPoints){
     $className = $model['modelName'];
     $baseClass = 'ReportingModel';
 
-    $renderedTemplate = $template->render(compact('model', 'frontOrDesk', 'className', 'baseClass'));
+    $renderedTemplate = $template->render(compact('model', 'getSubNamespace', 'className', 'baseClass'));
     file_put_contents("src/Model/Desk/" . $className . '.php', $renderedTemplate);
 }
 

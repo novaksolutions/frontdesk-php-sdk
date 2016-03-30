@@ -6,19 +6,19 @@
  * Time: 2:48 PM
  */
 
-namespace NovakSolutions\FrontDesk\Model\{{ frontOrDesk }};
+namespace NovakSolutions\FrontDesk\Model\{{ getSubNamespace }};
 use NovakSolutions\FrontDesk\Model;
 
 /**
  * Class {{ model.modelName }}
- * @package NovakSolutions\FrontDesk\Model\{{ frontOrDesk }}
+ * @package NovakSolutions\FrontDesk\Model\{{ getSubNamespace }}
 {% for field in model.fields %} * @property {{ descriptionToPhpDocType(field.type) }} ${{ field.name }}
 {% endfor %}
  */
 class {{ model.modelName }} extends Model\{{ baseClass }} {
     public static $endPoints = array(
         'select' => array(
-            'method' => 'POST',
+            'httpMethod' => 'POST',
             'urlPath' => '{{ model.urlPath }}'
         )
     );

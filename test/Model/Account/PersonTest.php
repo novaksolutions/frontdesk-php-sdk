@@ -7,8 +7,7 @@
  */
 use NovakSolutions\FrontDesk;
 
-class GetBusinessTest extends PHPUnit_Framework_TestCase{
-
+class PersonTest extends PHPUnit_Framework_TestCase{
     public function setup(){
         $credentialsFilePath = dirname(dirname(dirname(__FILE__))) . '/resource/oauth_credentials.php';
 
@@ -18,8 +17,10 @@ class GetBusinessTest extends PHPUnit_Framework_TestCase{
         require_once($credentialsFilePath);
     }
 
-    public function testGet(){
-        $results = FrontDesk\Operation\Desk\GetBusiness::get();
+    public function testAll(){
+        $results = FrontDesk\Model\Account\Person::query(array());
+        $firstResult = $results[0];
+        $this->assertTrue($firstResult instanceof FrontDesk\Model\Account\Person);
         $this->assertTrue(count($results) > 0);
     }
 } 

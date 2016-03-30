@@ -11,7 +11,7 @@ namespace NovakSolutions\FrontDesk\Generate;
 
 class ReportingParser extends Parser {
 
-    public function extractDefinitions($html){
+    public function extractDataFromHtml($html){
         $definitions = array();
         /** @var \QueryPath $qp */
         $qp = htmlqp($html, '.super_group', array('ignore_parser_warnings' => true));

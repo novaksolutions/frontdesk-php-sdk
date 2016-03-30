@@ -67,17 +67,22 @@ class FrontDesk {
 
     }
 
-    public static function call($endPoint, $method, $postData, $businessSubdomain){
+    public static function call($endPoint, $httpMethod, $postData, $businessSubdomain, $noSubdomain){
         if($businessSubdomain == ''){
             $businessSubdomain = Businesses::$defaultBusinessSubdomain;
         }
 
         $accessToken = Businesses::get($businessSubdomain);
 
-        $url = 'https://' . $businessSubdomain . '.frontdeskhq.com' . $endPoint;
+        if($noSubdomain){
+            $url = 'https://frontdeskhq.com' . $endPoint;
+        } else {
+            $url = 'https://' . $businessSubdomain . '.frontdeskhq.com' . $endPoint;
+        }
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $httpMethod);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/cacert.pem');
@@ -88,7 +93,10 @@ class FrontDesk {
             )
         );
         $result = curl_exec($ch);
-        $result = json_decode($result);
+        $result = json_decode($result, true);
+        if($result == null){
+            throw new Exception("Ack, request to: $endPoint resulted in odd return: $result.\n\nCurl Error Was:" . curl_error($ch));
+        }
         curl_close($ch);
 
         return $result;
@@ -108,7 +116,7 @@ class FrontDesk {
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://' . $businessSubdomain . '.frontdeskhq.com' . $endPoint['urlPath']);
-        switch(strtoupper($endPoint['method'])){
+        switch(strtoupper($endPoint['httpMethod'])){
             case 'POST':
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData, JSON_PRETTY_PRINT));

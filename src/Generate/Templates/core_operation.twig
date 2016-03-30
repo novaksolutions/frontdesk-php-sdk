@@ -16,33 +16,68 @@ use NovakSolutions\FrontDesk\Operation;
 {% endfor %}
  */
 class {{ className }} extends Operation\Operation {
-    public static $method = '{{ method.method }}';
+    public static $httpMethod = '{{ method.httpMethod }}';
     public static $urlPath = '{{ method.url }}';
+    public static $noSubdomain = {{ noSubdomain }};
+    public static $returnsModelClass = 'method.modelClassName';
+    public static $returnArrayKey = 'method.returnsArrayKey';
+{% if method.parameters %}
 
+{% for parameter in method.parameters %}    const PARAM_{{ parameter.name|upper }} = '{{ parameter.name }}';
+{% endfor %}
+
+{% endif %}
     public static $fields = array(
 {% for field in method.fields %}        '{{ field.name }}',
 {% endfor %}
     );
 
+    public static $parameters = array(
+{% for parameter in method.parameters %}        '{{ parameter.name }}',
+{% endfor %}
+    );
 {% if method.method == "GET" %}
-    public static function get({% if urlArguments %}${{ urlArguments|join(', $') }}, {% endif %}$subdomain = null){
+
+{% if method.parameters %}    /**
+    * @param array $getParametersData
+{% for parameter in method.parameters %}    * {{ parameter.name|rpad20 }} {{ descriptionToPhpDocType(parameter.type)|rpad10 }} {{ parameter.description }}
+{% endfor %}
+    */
+{% endif %}
+    public static function get({% if urlArguments %}${{ urlArguments|join(', $') }}, {% endif %}{% if method.parameters %}$getParameters = array(), {% endif %}$businessSubdomain = null){
+    {% if urlArguments %}
         $urlArguments = compact('{{ urlArguments|join("', '") }}');
-        self::makeRequest($urlArguments, null, $subdomain);
+    {% else %}
+        $urlArguments = array();
+    {% endif %}
+        self::makeRequest($urlArguments, {% if method.parameters %}$getParameters{% else %}array(){% endif %}, array(), $businessSubdomain);
     }
 {%  endif %}{% if method.method == "POST" %}
-    public static function post({% if urlArguments %}${% endif %}{{ urlArguments|join(', $') }}, $data, $subdomain = null){
+    public static function post({% if urlArguments %}${{ urlArguments|join(', $') }}, {% endif %}$data, $businessSubdomain = null){
+    {% if urlArguments %}
         $urlArguments = compact('{{ urlArguments|join("', '") }}');
-        self::makeRequest($urlArguments, $data, $subdomain);
+    {% else %}
+        $urlArguments = array();
+    {% endif %}
+        self::makeRequest($urlArguments, $data, $businessSubdomain);
     }
 {%  endif %}{% if method.method == "PUT" %}
-    public static function put({% if urlArguments %}${% endif %}{{ urlArguments|join(', $') }}, $data, $subdomain = null){
+    public static function put({% if urlArguments %}${{ urlArguments|join(', $') }}, {% endif %}$data, $businessSubdomain = null){
+    {% if urlArguments %}
         $urlArguments = compact('{{ urlArguments|join("', '") }}');
-        self::makeRequest($urlArguments, $data, $subdomain);
+    {% else %}
+        $urlArguments = array();
+    {% endif %}
+        self::makeRequest($urlArguments, $data, $businessSubdomain);
     }
 {%  endif %}{% if method.method == "DELETE" %}
-    public static function delete({% if urlArguments %}${{ urlArguments|join(', $') }}, {% endif %}$subdomain = null){
+    public static function delete({% if urlArguments %}${{ urlArguments|join(', $') }}, {% endif %}$businessSubdomain = null){
+    {% if urlArguments %}
         $urlArguments = compact('{{ urlArguments|join("', '") }}');
-        self::makeRequest($urlArguments, null, $subdomain);
+    {% else %}
+        $urlArguments = array();
+    {% endif %}
+        self::makeRequest($urlArguments, null, $businessSubdomain);
     }
 {%  endif %}
 }

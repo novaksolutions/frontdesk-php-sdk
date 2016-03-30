@@ -13,13 +13,13 @@ class DocumentationParserTest extends PHPUnit_Framework_TestCase{
 
     public function testParseCoreDocumentation(){
         $coreParser = new \NovakSolutions\FrontDesk\Generate\CoreParser();
-        $definitions = $coreParser->extractDefinitions(file_get_contents(dirname(dirname(__FILE__)) . "/resource/v2.html"));
+        $definitions = $coreParser->extractDataFromHtml(file_get_contents(dirname(dirname(__FILE__)) . "/resource/v2.html"));
         $this->assertEquals(array_keys($definitions['Clients']['fields']['person_state']['values']), array('active', 'deleted', 'hidden'));
     }
 
 //    public function testParseReportingDocumentation(){
 //        $reportingParser = new \NovakSolutions\FrontDesk\Generate\ReportingParser();
-//        $definitions = $reportingParser->extractDefinitions(file_get_contents(dirname(dirname(__FILE__)) . "/resource/v3.html"));
+//        $definitions = $reportingParser->extractDataFromHtml(file_get_contents(dirname(dirname(__FILE__)) . "/resource/v3.html"));
 //        $this->assertEquals(array_keys($definitions['Clients']['fields']['person_state']['values']), array('active', 'deleted', 'hidden'));
 //    }
 } 
