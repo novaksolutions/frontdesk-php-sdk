@@ -6,12 +6,12 @@
  * Time: 2:48 PM
  */
 
-namespace NovakSolutions\FrontDesk\Model\{{ getSubNamespace }};
+namespace NovakSolutions\FrontDesk\Model\{{ frontOrDesk }};
 use NovakSolutions\FrontDesk\Model;
 
 /**
  * Class {{ model.modelName }}
- * @package NovakSolutions\FrontDesk\Model\{{ getSubNamespace }}
+ * @package NovakSolutions\FrontDesk\Model\{{ frontOrDesk }}
 {% for field in model.fields %} * @property {{ descriptionToPhpDocType(field.type) }} ${{ field.name }}
 {% endfor %}
  */

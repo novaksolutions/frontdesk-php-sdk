@@ -20,5 +20,7 @@ class ClientsTest extends PHPUnit_Framework_TestCase{
     public function testAll(){
         $results = FrontDesk\Model\Desk\Client::all();
         $this->assertTrue(count($results) > 0);
+        $firstRecord = $results[0];
+        $this->assertTrue($firstRecord->id > 0);
     }
 } 

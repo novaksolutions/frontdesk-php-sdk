@@ -29,7 +29,7 @@ use NovakSolutions\FrontDesk\Operation;
  */
 class PostPerson extends Operation\Operation {
     public static $httpMethod = 'POST';
-    public static $urlPath = '/v2/desk/people';
+    public static $urlPath = '/api/v2/desk/people';
     public static $noSubdomain = false;
     public static $fields = array(
         'first_name',

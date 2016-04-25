@@ -36,10 +36,16 @@ class FrontDesk {
 
         $modelClassName = get_class($resultSet->queryBuilder->model);
 
+        $fieldNames = array();
+        foreach($response['data']['attributes']['fields'] as $field){
+            $fieldNames[] = $field['name'];
+        }
+
         $results = array();
         foreach($response['data']['attributes']['rows'] as $row){
+            /** @var Model $model */
             $model = new $modelClassName();
-            $model->setData($row);
+            $model->setData(array_combine($fieldNames, $row));
             $results[] = $model;
         }
 
@@ -83,13 +89,13 @@ class FrontDesk {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $httpMethod);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/cacert.pem');
         curl_setopt($ch, CURLOPT_HTTPHEADER,
             array(
                 'Authorization: Bearer ' . $accessToken,
-                'Content-Type: application/vnd.api+json'
+                'Content-Type: application/json'
             )
         );
         $result = curl_exec($ch);

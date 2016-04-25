@@ -41,7 +41,7 @@ foreach($reportingDefinitions as $objectName => $endPoints){
     $className = $model['modelName'];
     $baseClass = 'ReportingModel';
 
-    $renderedTemplate = $template->render(compact('model', 'getSubNamespace', 'className', 'baseClass'));
+    $renderedTemplate = $template->render(compact('frontOrDesk', 'model', 'className', 'baseClass'));
     file_put_contents("src/Model/Desk/" . $className . '.php', $renderedTemplate);
 }
 

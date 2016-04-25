@@ -27,7 +27,7 @@ class CoreModel{
             }
             $getClassName = static::$getByIdOperationClassName;
             $object = $getClassName::getById($id, $this->businessSubdomain);
-            $this->loadFromArray($object->toArray());
+            $this->loadFromArray($object['people'][0]);
         }
 
         if($businessSubdomain !== null){
@@ -65,8 +65,8 @@ class CoreModel{
             if(static::$postOperationClassName == ''){
                 throw new \NovakSolutions\FrontDesk\Exception(get_class($this) . " does not have a post Operation.  And cannot be inserted.");
             }
-            $postClassName = static::$getByIdOperationClassName;
-            $results = $postClassName::post($this->data, $this->businessSubdomain);
+            $postClassName = static::$postOperationClassName;
+            $results = $postClassName::post(array('person' => $this->data), $this->businessSubdomain);
             //Look at results, did it work or not??
 
             return null;
@@ -89,5 +89,9 @@ class CoreModel{
         }
 
         return $results;
+    }
+
+    public function loadFromArray(array $data){
+        $this->data = $data;
     }
 } 

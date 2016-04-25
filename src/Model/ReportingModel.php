@@ -11,6 +11,7 @@ use NovakSolutions\FrontDesk;
 
 class ReportingModel extends Model {
     public static function newQuery(){
-        return new FrontDesk\ReportingQueryBuilder();
+        $reportingQueryBuilder = new FrontDesk\ReportingQueryBuilder(new static());
+        return $reportingQueryBuilder;
     }
 } 
