@@ -9,6 +9,8 @@
 namespace NovakSolutions\FrontDesk;
 
 
+use NovakSolutions\FrontDesk\Filter\Filter;
+
 class ReportingQueryBuilder extends QueryBuilder{
 
 
@@ -21,9 +23,30 @@ class ReportingQueryBuilder extends QueryBuilder{
 
     }
 
-    public function where($fieldName, $valueOrComparator, $value = null){
-        if($value !== null){
-
+    public function where($fieldName, $valueOrComparator, $value = null, $value2 = null){
+        if($value === null){
+            $value = $valueOrComparator;
+            $comparator = 'eq';
+        } else {
+            $comparator = $valueOrComparator;
         }
+
+        $filter = Filter::getFilterForComparator($comparator);
+        $filter->fieldName = $fieldName;
+        $filter->value = $value;
+        $filter->value2 = $value2;
+        $this->filters[] = $filter;
+    }
+
+    public function buildCriteriaForRequest(){
+        /** @var Filter $filter */
+        $filters = array();
+        foreach($this->filters as $filter){
+            $filters[] = $filter->toFrontDeskReportingArray();
+        }
+        return array(
+            'and',
+            $filters
+        );
     }
 } 

@@ -14,7 +14,7 @@ namespace NovakSolutions\FrontDesk;
  */
 class QueryBuilder {
     public $model;
-    public $criteria = array();
+    public $filters = array();
     public $businessKey = null;
     public $sort = '';
 
@@ -32,5 +32,17 @@ class QueryBuilder {
 
     public function getFields(){
         return $this->model->getFields();
+    }
+    
+    public function query(){
+        $records = array();
+        $resultSet = new ResultSet($this, $this->model);
+
+        /** @var Model\ReportingModel $result */
+        foreach($resultSet as $result){
+            $records[] = $result;
+        }
+
+        return $records;
     }
 } 

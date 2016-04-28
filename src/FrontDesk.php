@@ -12,12 +12,17 @@ class FrontDesk {
 
     public static function select(ResultSet $resultSet){
         if($resultSet->queryBuilder instanceof ReportingQueryBuilder){
+            $filters = array();
+            if(count($resultSet->queryBuilder->filters) > 0){
+                $filters = $resultSet->queryBuilder->buildCriteriaForRequest();
+            }
             $postData = array(
                 'data' => array(
                     'type' => 'queries',
                     'attributes' => array(
                         'fields' => $resultSet->queryBuilder->getFields(),
-                        //'sort' => $resultSet->queryBuilder->sort,
+                        'filter' => $filters,
+                        'sort' => $resultSet->queryBuilder->sort,
                         'page' => array(
                             'limit' => $resultSet->perPage
                         )
@@ -50,7 +55,6 @@ class FrontDesk {
         }
 
         $resultSet->results = $results;
-
     }
 
     public static function insert(){

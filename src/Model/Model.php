@@ -22,12 +22,7 @@ class Model {
 
     }
 
-    public static function where($fieldName, $valueOrComparator, $value = ''){
-        $query = static::newQuery();
-        $query->model = new static();
-        $query->where($fieldName, $valueOrComparator, $value = '');
-        return $query;
-    }
+
 
     /**
      * @returns FrontDesk\QueryBuilder

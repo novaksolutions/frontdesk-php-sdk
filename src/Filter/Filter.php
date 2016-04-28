@@ -7,21 +7,26 @@
  */
 namespace NovakSolutions\FrontDesk\Filter;
 
-class Filter {
+abstract class Filter {
     public $operator = '';
     public $fieldName = '';
-    public $values = array();
+    public $value;
+    public $value2;
+
+    public static function getFilterForComparator($comparator){
+        switch($comparator){
+            case 'eq':
+                return new EqualTo();
+        }    
+    }
 
     public abstract function getFrontDeskOperator();
 
     public function toFrontDeskReportingArray(){
-        return array_merge(
-            array(
-                $this->operator,
-                $this->fieldName,
-            ),
-            $this->values
-        )
+        return array(
+            $this->getFrontDeskOperator(),
+            $this->fieldName,
+            $this->value
+        );
     }
-
 } 

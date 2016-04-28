@@ -13,4 +13,11 @@ class ReportingModel extends Model {
     public static function newQuery(){
         return new FrontDesk\ReportingQueryBuilder();
     }
+
+    public static function where($fieldName, $valueOrComparator, $value = ''){
+        $query = static::newQuery();
+        $query->model = new static();
+        $query->where($fieldName, $valueOrComparator, $value);
+        return $query;
+    }
 } 
