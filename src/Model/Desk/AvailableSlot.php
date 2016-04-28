@@ -1,17 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 2:48 PM
+ * Copyright 2016 (C) NovakSolutions, LLC
  */
 
-namespace NovakSolutions\FrontDesk\Model\Front;
+namespace NovakSolutions\FrontDesk\Model\Desk;
 use NovakSolutions\FrontDesk\Model;
 
 /**
- * Class AppointmentAvailabilitySlot
- * @package NovakSolutions\FrontDesk\Model\Front
+ * Class AvailableSlot
+ * @package NovakSolutions\FrontDesk\Model\Desk
  * @property int $duration_in_minutes
  * @property string $start_at
  * @property string $end_at
@@ -20,13 +17,12 @@ use NovakSolutions\FrontDesk\Model;
  * @property int $location_id
  * @property string $staff_member
  */
-class AppointmentAvailabilitySlot extends Model\CoreModel {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => 'GET',
-            'urlPath' => '/api/v2/front/appointments/:service_id/available_slots'
-        )
-    );
+class AvailableSlot extends Model\CoreModel {
+    public static $getByIdOperationClassName = '';
+    public static $putOperationClassName = '';
+    public static $postOperationClassName = '';
+    public static $deleteOperationClassName = '';
+    public static $queryOperationClassName = '';
 
     public static $fields = array(
         'duration_in_minutes',

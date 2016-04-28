@@ -10,19 +10,20 @@ namespace NovakSolutions\FrontDesk\Operation\Front;
 use NovakSolutions\FrontDesk\Operation;
 
 /**
- * Class PostVisits
+ * Class PostWaitlistEntry
  * @package NovakSolutions\FrontDesk\Operation\Front
  * @property integer $person_id
  * @property integer $event_occurrence_id
  */
-class PostVisits extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'POST',
-        'urlPath' => '/api/v2/front/visits'
-    );
-
+class PostWaitlistEntry extends Operation\Operation {
+    public static $httpMethod = 'POST';
+    public static $urlPath = '/api/v2/front/waitlist_entries';
+    public static $noSubdomain = false;
     public static $fields = array(
         'person_id',
         'event_occurrence_id',
+    );
+
+    public static $parameters = array(
     );
 }

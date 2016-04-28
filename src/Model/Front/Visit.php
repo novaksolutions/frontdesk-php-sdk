@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 2:48 PM
+ * Copyright 2016 (C) NovakSolutions, LLC
  */
 
 namespace NovakSolutions\FrontDesk\Model\Front;
@@ -25,12 +22,11 @@ use NovakSolutions\FrontDesk\Model;
  * @property integer $punch_id
  */
 class Visit extends Model\CoreModel {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => 'GET',
-            'urlPath' => '/api/v2/front/visits/:id'
-        )
-    );
+    public static $getByIdOperationClassName = '\NovakSolutions\FrontDesk\Operation\Front\GetVisitById';
+    public static $putOperationClassName = '';
+    public static $postOperationClassName = '\NovakSolutions\FrontDesk\Operation\Front\PostVisit';
+    public static $deleteOperationClassName = '';
+    public static $queryOperationClassName = '';
 
     public static $fields = array(
         'person_id',

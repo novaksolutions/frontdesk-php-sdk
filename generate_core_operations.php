@@ -7,7 +7,7 @@ require_once('/vendor/autoload.php');
 $coreParser = new Generate\CoreParser();
 $coreApiDocsAsHtml = http_get_contents("https://developer.frontdeskhq.com/docs/api/v2");
 
-$coreDefinitions = $coreParser->extractDefinitions($coreApiDocsAsHtml);
+$coreDefinitions = $coreParser->extractDataFromHtml($coreApiDocsAsHtml);
 
 //Process Definitions Info Select, Update, Insert, etc...
 
@@ -16,6 +16,8 @@ $models = array();
 
 $loader = new Twig_Loader_Filesystem('src/Generate/Templates');
 $twig = new Twig_Environment($loader);
+$twig->addExtension(new Twig_Extension_Debug());
+$twig->setCache(false);
 $function = new Twig_SimpleFunction('descriptionToPhpDocType',
     function ($type) {
         switch($type){
@@ -28,6 +30,18 @@ $function = new Twig_SimpleFunction('descriptionToPhpDocType',
 );
 
 $twig->addFunction($function);
+
+$rpad10Filter = new Twig_SimpleFilter("rpad10", function($string){
+    return str_pad($string, 10, " ", STR_PAD_RIGHT);
+});
+
+$rpad20Filter = new Twig_SimpleFilter("rpad20", function($string){
+    return str_pad($string, 20, " ", STR_PAD_RIGHT);
+});
+
+$twig->addFilter($rpad10Filter);
+$twig->addFilter($rpad20Filter);
+
 $template = $twig->loadTemplate('core_operation.twig');
 $endPoints = array();
 foreach($coreDefinitions as $objectName => $objectDetails){
@@ -40,14 +54,27 @@ foreach($coreDefinitions as $objectName => $objectDetails){
             $frontOrDesk = '\Front';
         } elseif (strpos($method['url'], "/desk/") !== false){
             $frontOrDesk = '\Desk';
+        } else {
+            $frontOrDesk = '\Account';
         }
-        $className = buildMethodNameFromEndPoint($method['method'], $method['url']);
+        $className = \NovakSolutions\FrontDesk\Generate\CoreParser::buildOperationNameFromEndPoint($method['httpMethod'], $method['url']);
+        $urlArguments = getUrlArguments($method['url']);
 
-        $renderedTemplate = $template->render(compact('method', 'frontOrDesk', 'className'));
         $fileName = "src/Operation/{$frontOrDesk}/" . $className . '.php';
         if(file_exists($fileName)){
             unlink($fileName);
         }
+        if(!file_exists("src/Operation/{$frontOrDesk}/")){
+            mkdir("src/Operation/{$frontOrDesk}/");
+        }
+        if($frontOrDesk == '\Account'){
+            $noSubdomain = "true";
+        } else {
+            $noSubdomain = "false";
+        }
+
+        $renderedTemplate = $template->render(compact('noSubdomain', 'method', 'frontOrDesk', 'className', 'urlArguments'));
+
         file_put_contents($fileName, $renderedTemplate);
     }
 
@@ -74,26 +101,25 @@ function getStandardMethodsForObject($objectName, $definitions){
     //foreach($definitions[''])
 }
 
-function buildMethodNameFromEndPoint($method, $endPointUrl){
+function getUrlArguments($endPointUrl){
+    $urlArguments = array();
+
     $endPointUrl = str_replace("/api/v2/", "", $endPointUrl);
+
+    if(strpos($endPointUrl, ".json") !== false){
+        $endPointUrl = str_replace(".json", "", $endPointUrl);
+    }
+
     if(strpos($endPointUrl, '?') !== false){
         $urlParts = explode("?", $endPointUrl);
         $endPointUrl = array_shift($urlParts);;
     }
     $urlPieces = explode("/", $endPointUrl);
-    end($urlPieces);
-    $lastPiece = current($urlPieces);
-    prev($urlPieces);
-    $secondToLastPiece = current($urlPieces);
-
-
-    if($lastPiece == ':id'){
-        $className = ucwords(strtolower($method)) . Inflector\Inflector::classify(Inflector\Inflector::singularize($secondToLastPiece)) . 'ById';
-    } elseif(strpos($secondToLastPiece, ":") !== false) {
-        $className = ucwords(strtolower($method)) . Inflector\Inflector::pluralize(Inflector\Inflector::classify($lastPiece)) . 'By' . Inflector\Inflector::classify(str_replace(":", "", $secondToLastPiece));
-    } else {
-        $className = ucwords(strtolower($method)) . Inflector\Inflector::classify($lastPiece);
+    foreach($urlPieces as $urlPiece){
+        if(strpos($urlPiece, ":") === 0){
+            $urlArguments = str_replace(":", "", $urlPiece);
+        }
     }
 
-    return $className;
+    return $urlArguments;
 }

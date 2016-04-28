@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 12:07 PM
+ * User: joey_000
+ * Date: 4/28/2016
+ * Time: 3:03 PM
  */
 use NovakSolutions\FrontDesk;
 
@@ -18,14 +18,7 @@ class ClientsTest extends PHPUnit_Framework_TestCase{
     }
 
     public function testAll(){
-        $gotRecords = false;
         $results = FrontDesk\Model\Desk\Client::all();
-        foreach($results as $result){
-            $gotRecords = true;
-            break;
-        }
-
-        $this->assertTrue($gotRecords);
     }
 
 } 

@@ -18,15 +18,16 @@ use NovakSolutions\FrontDesk\Operation;
  * @property string $state
  */
 class GetWaitlistEntryById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/front/waitlist_entries/:id'
-    );
-
+    public static $httpMethod = 'GET';
+    public static $urlPath = '/api/v2/front/waitlist_entries/:id';
+    public static $noSubdomain = false;
     public static $fields = array(
         'id',
         'person_id',
         'event_occurrence_id',
         'state',
+    );
+
+    public static $parameters = array(
     );
 }

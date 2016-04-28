@@ -10,7 +10,7 @@ namespace NovakSolutions\FrontDesk\Generate;
 
 
 abstract class Parser {
-    public abstract function extractDefinitions($html);
+    public abstract function extractDataFromHtml($html);
 
     /**
      * @param $tables

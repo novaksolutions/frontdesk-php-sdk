@@ -1,16 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 2:48 PM
+ * Copyright 2016 (C) NovakSolutions, LLC
  */
 
 namespace NovakSolutions\FrontDesk\Model\Desk;
 use NovakSolutions\FrontDesk\Model;
 
 /**
- * Class NotesforPeople
+ * Class Note
  * @package NovakSolutions\FrontDesk\Model\Desk
  * @property int $id
  * @property string $note
@@ -19,13 +16,12 @@ use NovakSolutions\FrontDesk\Model;
  * @property int $person_id
  * @property string $created_at
  */
-class NotesforPeople extends Model\CoreModel {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => 'GET',
-            'urlPath' => '/api/v2/desk/people/:person_id/notes'
-        )
-    );
+class Note extends Model\CoreModel {
+    public static $getByIdOperationClassName = '\NovakSolutions\FrontDesk\Operation\Desk\GetNoteById';
+    public static $putOperationClassName = '';
+    public static $postOperationClassName = '';
+    public static $deleteOperationClassName = '\NovakSolutions\FrontDesk\Operation\Desk\DeleteNoteById';
+    public static $queryOperationClassName = '';
 
     public static $fields = array(
         'id',

@@ -14,11 +14,20 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class GetEventOccurrences extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/desk/event_occurrences'
-    );
+    public static $httpMethod = 'GET';
+    public static $urlPath = '/api/v2/desk/event_occurrences';
+    public static $noSubdomain = false;
+
+    const PARAM_FROM = 'from';
+    const PARAM_TO = 'to';
+    const PARAM_STATE = 'state';
 
     public static $fields = array(
+    );
+
+    public static $parameters = array(
+        'from',
+        'to',
+        'state',
     );
 }

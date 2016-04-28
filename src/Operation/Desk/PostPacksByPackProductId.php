@@ -23,11 +23,9 @@ use NovakSolutions\FrontDesk\Operation;
  * @property integer $visits_shared
  */
 class PostPacksByPackProductId extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'POST',
-        'urlPath' => '/api/v2/desk/pack_products/:pack_product_id/packs'
-    );
-
+    public static $httpMethod = 'POST';
+    public static $urlPath = '/api/v2/desk/pack_products/:pack_product_id/packs';
+    public static $noSubdomain = false;
     public static $fields = array(
         'person_ids',
         'start_date',
@@ -38,5 +36,8 @@ class PostPacksByPackProductId extends Operation\Operation {
         'staff_member_id',
         'location_id',
         'visits_shared',
+    );
+
+    public static $parameters = array(
     );
 }

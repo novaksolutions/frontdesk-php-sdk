@@ -17,14 +17,15 @@ use NovakSolutions\FrontDesk\Operation;
  * @property boolean $pinned
  */
 class PostNotesByPersonId extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'POST',
-        'urlPath' => '/v2/desk/people/:person_id/notes'
-    );
-
+    public static $httpMethod = 'POST';
+    public static $urlPath = '/v2/desk/people/:person_id/notes';
+    public static $noSubdomain = false;
     public static $fields = array(
         'note',
         'public',
         'pinned',
+    );
+
+    public static $parameters = array(
     );
 }

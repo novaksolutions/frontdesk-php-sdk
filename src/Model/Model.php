@@ -10,7 +10,13 @@ namespace NovakSolutions\FrontDesk\Model;
 use NovakSolutions\FrontDesk;
 
 class Model {
+    public static $endPoints;
+
     public $data = array();
+
+    public function toArray(){
+        return $this->data;
+    }
 
     public static function all(){
         $query = static::newQuery();
@@ -37,5 +43,13 @@ class Model {
 
     public function setData(array $data){
         $this->data = $data;
+    }
+
+    public function __get($fieldName){
+        if(in_array($fieldName, static::$fields)){
+            return $this->data[$fieldName];
+        } else {
+            throw new \Exception("Invalid Field Name: " . $fieldName);
+        }
     }
 } 

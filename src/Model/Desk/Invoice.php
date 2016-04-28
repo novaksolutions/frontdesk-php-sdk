@@ -12,52 +12,52 @@ use NovakSolutions\FrontDesk\Model;
 /**
  * Class Invoice
  * @package NovakSolutions\FrontDesk\Model\Desk
- * @property currency $adjustments_amount,
- * @property integer $business_id,
- * @property string $business_name,
- * @property string $business_subdomain,
- * @property datetime $closed_at,
- * @property date $closed_date,
- * @property string $commission_recipient_name,
- * @property currency $coupons_amount,
- * @property boolean $created_by_client,
- * @property string $created_by_name,
- * @property string $currency_code,
- * @property currency $discounts_amount,
- * @property currency $expected_amount,
- * @property currency $expected_revenue_amount,
- * @property currency $expected_tax_amount,
- * @property integer $failed_transactions,
- * @property integer $franchise_id,
- * @property currency $gross_amount,
- * @property boolean $invoice_autobill,
- * @property date $invoice_due_date,
- * @property integer $invoice_id,
- * @property string $invoice_number,
- * @property string $invoice_payer_home_location,
- * @property integer $invoice_payer_id,
- * @property string $invoice_payer_name,
- * @property string $invoice_payer_primary_staff_name_at_sale,
- * @property enum $invoice_state,
- * @property datetime $issued_at,
- * @property date $issued_date,
- * @property string $key,
- * @property currency $net_paid_amount,
- * @property currency $net_paid_revenue_amount,
- * @property currency $net_paid_tax_amount,
- * @property currency $outstanding_amount,
- * @property currency $outstanding_revenue_amount,
- * @property currency $outstanding_tax_amount,
- * @property currency $payments_amount,
- * @property integer $purchase_order_number,
- * @property currency $refunds_amount,
- * @property string $sale_location_name,
- * @property integer $voided_transactions,
+ * @property currency $adjustments_amount
+ * @property integer $business_id
+ * @property string $business_name
+ * @property string $business_subdomain
+ * @property datetime $closed_at
+ * @property date $closed_date
+ * @property string $commission_recipient_name
+ * @property currency $coupons_amount
+ * @property boolean $created_by_client
+ * @property string $created_by_name
+ * @property string $currency_code
+ * @property currency $discounts_amount
+ * @property currency $expected_amount
+ * @property currency $expected_revenue_amount
+ * @property currency $expected_tax_amount
+ * @property integer $failed_transactions
+ * @property integer $franchise_id
+ * @property currency $gross_amount
+ * @property boolean $invoice_autobill
+ * @property date $invoice_due_date
+ * @property integer $invoice_id
+ * @property string $invoice_number
+ * @property string $invoice_payer_home_location
+ * @property integer $invoice_payer_id
+ * @property string $invoice_payer_name
+ * @property string $invoice_payer_primary_staff_name_at_sale
+ * @property enum $invoice_state
+ * @property datetime $issued_at
+ * @property date $issued_date
+ * @property string $key
+ * @property currency $net_paid_amount
+ * @property currency $net_paid_revenue_amount
+ * @property currency $net_paid_tax_amount
+ * @property currency $outstanding_amount
+ * @property currency $outstanding_revenue_amount
+ * @property currency $outstanding_tax_amount
+ * @property currency $payments_amount
+ * @property integer $purchase_order_number
+ * @property currency $refunds_amount
+ * @property string $sale_location_name
+ * @property integer $voided_transactions
  */
 class Invoice extends Model\ReportingModel {
     public static $endPoints = array(
         'select' => array(
-            'method' => 'POST',
+            'httpMethod' => 'POST',
             'urlPath' => '/desk/api/v3/reports/invoices/queries'
         )
     );

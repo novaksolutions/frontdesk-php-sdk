@@ -1,16 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 2:48 PM
+ * Copyright 2016 (C) NovakSolutions, LLC
  */
 
 namespace NovakSolutions\FrontDesk\Model\Desk;
 use NovakSolutions\FrontDesk\Model;
 
 /**
- * Class PackproductPasse
+ * Class PackProduct
  * @package NovakSolutions\FrontDesk\Model\Desk
  * @property int $id
  * @property int $count
@@ -24,13 +21,12 @@ use NovakSolutions\FrontDesk\Model;
  * @property string $product
  * @property string $services
  */
-class PackproductPasse extends Model\CoreModel {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => 'GET',
-            'urlPath' => '/api/v2/desk/pack_products'
-        )
-    );
+class PackProduct extends Model\CoreModel {
+    public static $getByIdOperationClassName = '\NovakSolutions\FrontDesk\Operation\Desk\GetPackProductById';
+    public static $putOperationClassName = '\NovakSolutions\FrontDesk\Operation\Desk\PutPackProductById';
+    public static $postOperationClassName = '\NovakSolutions\FrontDesk\Operation\Desk\PostPackProduct';
+    public static $deleteOperationClassName = '\NovakSolutions\FrontDesk\Operation\Desk\DeletePackProductById';
+    public static $queryOperationClassName = '\NovakSolutions\FrontDesk\Operation\Desk\GetPackProducts';
 
     public static $fields = array(
         'id',

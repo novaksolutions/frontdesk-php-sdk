@@ -14,11 +14,12 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class DeletePersonById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'DELETE',
-        'urlPath' => '/v2/desk/people/:id'
+    public static $httpMethod = 'DELETE';
+    public static $urlPath = '/v2/desk/people/:id';
+    public static $noSubdomain = false;
+    public static $fields = array(
     );
 
-    public static $fields = array(
+    public static $parameters = array(
     );
 }

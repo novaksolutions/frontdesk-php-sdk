@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 2:48 PM
+ * Copyright 2016 (C) NovakSolutions, LLC
  */
 
 namespace NovakSolutions\FrontDesk\Model\Front;
@@ -17,12 +14,11 @@ use NovakSolutions\FrontDesk\Model;
  * @property array $restrictions
  */
 class WaitlistEligibility extends Model\CoreModel {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => 'GET',
-            'urlPath' => '/api/v2/front/event_occurrences/:event_occurrence_id/waitlist_eligibilities'
-        )
-    );
+    public static $getByIdOperationClassName = '';
+    public static $putOperationClassName = '';
+    public static $postOperationClassName = '';
+    public static $deleteOperationClassName = '';
+    public static $queryOperationClassName = '';
 
     public static $fields = array(
         'person_id',

@@ -14,11 +14,20 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Front
  */
 class GetSummary extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/front/appointments/:service_id/available_slots/summary'
-    );
+    public static $httpMethod = 'GET';
+    public static $urlPath = '/api/v2/front/appointments/:service_id/available_slots/summary';
+    public static $noSubdomain = false;
+
+    const PARAM_DATE = 'date';
+    const PARAM_STAFF_MEMBER_IDS = 'staff_member_ids';
+    const PARAM_LOCATION_IDS = 'location_ids';
 
     public static $fields = array(
+    );
+
+    public static $parameters = array(
+        'date',
+        'staff_member_ids',
+        'location_ids',
     );
 }

@@ -10,13 +10,17 @@ namespace NovakSolutions\FrontDesk;
 
 
 use NovakSolutions\FrontDesk\Filter\Filter;
+use NovakSolutions\FrontDesk\Model\Model;
 
 class ReportingQueryBuilder extends QueryBuilder{
 
+    public function __construct(Model $model){
+        $this->model = $model;
+    }
 
     public function get(){
         $resultSet = new ResultSet($this, $this->model);
-        return $resultSet->nextPage();
+        return $resultSet;
     }
 
     public function buildData(){

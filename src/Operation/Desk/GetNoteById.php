@@ -14,11 +14,12 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Desk
  */
 class GetNoteById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/desk/people/:person_id/notes/:id'
+    public static $httpMethod = 'GET';
+    public static $urlPath = '/api/v2/desk/people/:person_id/notes/:id';
+    public static $noSubdomain = false;
+    public static $fields = array(
     );
 
-    public static $fields = array(
+    public static $parameters = array(
     );
 }

@@ -20,11 +20,9 @@ use NovakSolutions\FrontDesk\Operation;
  * @property timestamp $updated_at
  */
 class GetWaitlistEntryById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/desk/waitlist_entries/:id'
-    );
-
+    public static $httpMethod = 'GET';
+    public static $urlPath = '/api/v2/desk/waitlist_entries/:id';
+    public static $noSubdomain = false;
     public static $fields = array(
         'id',
         'person_id',
@@ -32,5 +30,8 @@ class GetWaitlistEntryById extends Operation\Operation {
         'state',
         'created_at',
         'updated_at',
+    );
+
+    public static $parameters = array(
     );
 }

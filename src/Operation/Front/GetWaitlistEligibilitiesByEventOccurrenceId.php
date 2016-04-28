@@ -17,14 +17,15 @@ use NovakSolutions\FrontDesk\Operation;
  * @property array $restrictions
  */
 class GetWaitlistEligibilitiesByEventOccurrenceId extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'GET',
-        'urlPath' => '/api/v2/front/event_occurrences/:event_occurrence_id/waitlist_eligibilities'
-    );
-
+    public static $httpMethod = 'GET';
+    public static $urlPath = '/api/v2/front/event_occurrences/:event_occurrence_id/waitlist_eligibilities';
+    public static $noSubdomain = false;
     public static $fields = array(
         'person_id',
         'can_waitlist',
         'restrictions',
+    );
+
+    public static $parameters = array(
     );
 }

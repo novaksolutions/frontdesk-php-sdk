@@ -14,11 +14,12 @@ use NovakSolutions\FrontDesk\Operation;
  * @package NovakSolutions\FrontDesk\Operation\Front
  */
 class DeleteWaitlistEntryById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'DELETE',
-        'urlPath' => '/api/v2/front/waitlist_entries/:id'
+    public static $httpMethod = 'DELETE';
+    public static $urlPath = '/api/v2/front/waitlist_entries/:id';
+    public static $noSubdomain = false;
+    public static $fields = array(
     );
 
-    public static $fields = array(
+    public static $parameters = array(
     );
 }

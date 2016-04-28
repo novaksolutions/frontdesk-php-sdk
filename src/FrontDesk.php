@@ -7,6 +7,8 @@
  */
 namespace NovakSolutions\FrontDesk;
 
+use NovakSolutions\FrontDesk\Model\Model;
+
 class FrontDesk {
     public static $debugCurl = false;
 
@@ -35,14 +37,20 @@ class FrontDesk {
             }
         }
 
-        $response = static::call('select', $resultSet->queryBuilder->model, $postData, $resultSet->queryBuilder->businessKey);
+        $response = static::reportingCall('select', $resultSet->queryBuilder->model, $postData, $resultSet->queryBuilder->businessKey);
 
         $modelClassName = get_class($resultSet->queryBuilder->model);
 
+        $fieldNames = array();
+        foreach($response['data']['attributes']['fields'] as $field){
+            $fieldNames[] = $field['name'];
+        }
+
         $results = array();
         foreach($response['data']['attributes']['rows'] as $row){
+            /** @var Model $model */
             $model = new $modelClassName();
-            $model->setData($row);
+            $model->setData(array_combine($fieldNames, $row));
             $results[] = $model;
         }
 
@@ -69,7 +77,42 @@ class FrontDesk {
 
     }
 
-    public static function call($operation, $model, $postData, $businessSubdomain = ''){
+    public static function call($endPoint, $httpMethod, $postData, $businessSubdomain, $noSubdomain){
+        if($businessSubdomain == ''){
+            $businessSubdomain = Businesses::$defaultBusinessSubdomain;
+        }
+
+        $accessToken = Businesses::get($businessSubdomain);
+
+        if($noSubdomain){
+            $url = 'https://frontdeskhq.com' . $endPoint;
+        } else {
+            $url = 'https://' . $businessSubdomain . '.frontdeskhq.com' . $endPoint;
+        }
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $httpMethod);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/cacert.pem');
+        curl_setopt($ch, CURLOPT_HTTPHEADER,
+            array(
+                'Authorization: Bearer ' . $accessToken,
+                'Content-Type: application/json'
+            )
+        );
+        $result = curl_exec($ch);
+        $result = json_decode($result, true);
+        if($result == null){
+            throw new Exception("Ack, request to: $endPoint resulted in odd return: $result.\n\nCurl Error Was:" . curl_error($ch));
+        }
+        curl_close($ch);
+
+        return $result;
+    }
+
+    public static function reportingCall($operation, Model $model, array $postData, $businessSubdomain = ''){
         $accessToken = Businesses::get($businessSubdomain);
 
         if($businessSubdomain == ''){
@@ -83,7 +126,7 @@ class FrontDesk {
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://' . $businessSubdomain . '.frontdeskhq.com' . $endPoint['urlPath']);
-        switch(strtoupper($endPoint['method'])){
+        switch(strtoupper($endPoint['httpMethod'])){
             case 'POST':
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData, JSON_PRETTY_PRINT));

@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 2:48 PM
+ * Copyright 2016 (C) NovakSolutions, LLC
  */
 
 namespace NovakSolutions\FrontDesk\Model\Front;
@@ -33,12 +30,11 @@ use NovakSolutions\FrontDesk\Model;
  * @property string $pricing
  */
 class Service extends Model\CoreModel {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => 'GET',
-            'urlPath' => '/api/v2/front/services'
-        )
-    );
+    public static $getByIdOperationClassName = '\NovakSolutions\FrontDesk\Operation\Front\GetServiceById';
+    public static $putOperationClassName = '';
+    public static $postOperationClassName = '';
+    public static $deleteOperationClassName = '';
+    public static $queryOperationClassName = '\NovakSolutions\FrontDesk\Operation\Front\GetServices';
 
     public static $fields = array(
         'id',

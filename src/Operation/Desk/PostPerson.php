@@ -10,7 +10,7 @@ namespace NovakSolutions\FrontDesk\Operation\Desk;
 use NovakSolutions\FrontDesk\Operation;
 
 /**
- * Class PostPeople
+ * Class PostPerson
  * @package NovakSolutions\FrontDesk\Operation\Desk
  * @property string $first_name
  * @property string $middle_name
@@ -27,12 +27,10 @@ use NovakSolutions\FrontDesk\Operation;
  * @property boolean $skip_complimentary_passes
  * @property collection $custom_fields
  */
-class PostPeople extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'POST',
-        'urlPath' => '/v2/desk/people'
-    );
-
+class PostPerson extends Operation\Operation {
+    public static $httpMethod = 'POST';
+    public static $urlPath = '/api/v2/desk/people';
+    public static $noSubdomain = false;
     public static $fields = array(
         'first_name',
         'middle_name',
@@ -48,5 +46,8 @@ class PostPeople extends Operation\Operation {
         'send_invite',
         'skip_complimentary_passes',
         'custom_fields',
+    );
+
+    public static $parameters = array(
     );
 }

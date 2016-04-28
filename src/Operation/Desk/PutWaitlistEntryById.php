@@ -16,13 +16,14 @@ use NovakSolutions\FrontDesk\Operation;
  * @property string $state_event
  */
 class PutWaitlistEntryById extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'PUT',
-        'urlPath' => '/api/v2/desk/waitlist_entries/:id'
-    );
-
+    public static $httpMethod = 'PUT';
+    public static $urlPath = '/api/v2/desk/waitlist_entries/:id';
+    public static $noSubdomain = false;
     public static $fields = array(
         'id',
         'state_event',
+    );
+
+    public static $parameters = array(
     );
 }

@@ -1,17 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: joey
- * Date: 2/29/2016
- * Time: 2:48 PM
+ * Copyright 2016 (C) NovakSolutions, LLC
  */
 
-namespace NovakSolutions\FrontDesk\Model\Front;
+namespace NovakSolutions\FrontDesk\Model\Account;
 use NovakSolutions\FrontDesk\Model;
 
 /**
- * Class AccountPeople
- * @package NovakSolutions\FrontDesk\Model\Front
+ * Class Person
+ * @package NovakSolutions\FrontDesk\Model\Account
  * @property int $id
  * @property string $name
  * @property string $first_name
@@ -28,13 +25,12 @@ use NovakSolutions\FrontDesk\Model;
  * @property string $subdomain
  * @property string $role
  */
-class AccountPeople extends Model\CoreModel {
-    public static $endPoints = array(
-        'select' => array(
-            'method' => 'GET',
-            'urlPath' => '/api/v2/account/people'
-        )
-    );
+class Person extends Model\CoreModel {
+    public static $getByIdOperationClassName = '';
+    public static $putOperationClassName = '';
+    public static $postOperationClassName = '';
+    public static $deleteOperationClassName = '';
+    public static $queryOperationClassName = '\NovakSolutions\FrontDesk\Operation\Account\GetPeople';
 
     public static $fields = array(
         'id',

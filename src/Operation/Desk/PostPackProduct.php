@@ -10,7 +10,7 @@ namespace NovakSolutions\FrontDesk\Operation\Desk;
 use NovakSolutions\FrontDesk\Operation;
 
 /**
- * Class PostPackProducts
+ * Class PostPackProduct
  * @package NovakSolutions\FrontDesk\Operation\Desk
  * @property object $product
  * @property integer $count
@@ -25,12 +25,10 @@ use NovakSolutions\FrontDesk\Operation;
  * @property boolean $send_expiration_notifications
  * @property array $service_ids
  */
-class PostPackProducts extends Operation\Operation {
-    public static $endPoint = array(
-        'method' => 'POST',
-        'urlPath' => '/api/v2/desk/pack_products'
-    );
-
+class PostPackProduct extends Operation\Operation {
+    public static $httpMethod = 'POST';
+    public static $urlPath = '/api/v2/desk/pack_products';
+    public static $noSubdomain = false;
     public static $fields = array(
         'product',
         'count',
@@ -44,5 +42,8 @@ class PostPackProducts extends Operation\Operation {
         'terms_acceptance_at_checkout',
         'send_expiration_notifications',
         'service_ids',
+    );
+
+    public static $parameters = array(
     );
 }
