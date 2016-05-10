@@ -40,6 +40,7 @@ class ReportingQueryBuilder extends QueryBuilder{
         $filter->value = $value;
         $filter->value2 = $value2;
         $this->filters[] = $filter;
+        return $this;
     }
 
     public function buildCriteriaForRequest(){

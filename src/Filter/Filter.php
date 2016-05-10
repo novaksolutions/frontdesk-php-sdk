@@ -17,6 +17,10 @@ abstract class Filter {
         switch($comparator){
             case 'eq':
                 return new EqualTo();
+            case 'gt':
+                return new GreaterThan();
+            case 'lt':
+                return new LessThan();
         }    
     }
 
